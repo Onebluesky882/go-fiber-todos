@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"go-fiber-todo/config"
 	"go-fiber-todo/database"
 	"go-fiber-todo/user"
 
@@ -11,7 +12,9 @@ import (
 )
 
 func main() {
-	db := database.ConnectDb()
+	config.LoadEnv()
+	dsn := config.GetEnv("DB")
+	db := database.ConnectDb(dsn)
 
 	err := db.AutoMigrate(&user.User{})
 	if err != nil {
