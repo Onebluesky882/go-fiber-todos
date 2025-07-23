@@ -10,11 +10,12 @@ import (
 )
 
 func ConnectDb() *gorm.DB {
+	// log .env file
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Warning : .env file not found , using system env variables")
 	}
-
+	// find DB="adsgfahg"
 	das := os.Getenv("DB")
 	if das == "" {
 		log.Fatal(("DB environment variable is not set"))
@@ -27,12 +28,12 @@ func ConnectDb() *gorm.DB {
 
 	sqlDB, err := db.DB()
 	if err != nil {
-		log.Fatal("failed to get db instance : %v", err)
+		log.Fatal("failed to ping db: " + err.Error())
 	}
 
 	err = sqlDB.Ping()
 	if err != nil {
-		log.Fatal(" failed to ping db %v", err)
+		log.Fatal("failed to ping db: " + err.Error())
 	}
 	return db
 }
