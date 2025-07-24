@@ -2,7 +2,8 @@ mkdir -p name && cd name && touch name.controller.go name.model.go name.routes.g
 
 ```go
 สร้าง template
-mkdir -p name && cd name && touch name.controller.go name.model.go name.routes.go name.service.go
+
+mkdir -p posts && cd posts && touch posts.controller.go posts.model.go posts.routes.go posts.service.go
 
 
 ตัวอย่าง sehema
