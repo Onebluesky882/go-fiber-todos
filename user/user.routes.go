@@ -11,4 +11,7 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 
 	route := app.Group("/users")
 	route.Post("/", userController.CreateUser)
+	route.Get("/", userController.GetUserByEmail)
 }
+
+// router -> controller -> service

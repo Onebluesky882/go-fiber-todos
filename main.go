@@ -23,6 +23,10 @@ func main() {
 	fmt.Println("✅ Migration succeeded.")
 
 	app := fiber.New()
+	app.Get("/ping", func(c *fiber.Ctx) error {
+		fmt.Println("Ping route called")
+		return c.SendString("pong")
+	})
 	user.RegisterUserRoutes(app, db)
 	log.Fatal(app.Listen(":3000"))
 }

@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"log"
 
 	"gorm.io/gorm"
@@ -32,4 +33,15 @@ func (s *UserService) Create(input *User) error {
 	}
 
 	return err
+}
+
+func (s *UserService) Find(input *User) (*User, error) {
+	var user User
+	err := s.DB.Where("email = ?", input.Email).First(&user).Error
+	if err != nil {
+		log.Printf("%v", err)
+		return nil, err
+	}
+	fmt.Printf("%v", err)
+	return &user, nil
 }

@@ -29,3 +29,22 @@ func (ctl *UserController) CreateUser(c *fiber.Ctx) error {
 	fmt.Printf("Created user: %+v\n", input)
 	return c.Status(fiber.StatusCreated).JSON(input)
 }
+
+func (ctl *UserController) GetUserByEmail(c *fiber.Ctx) error {
+	email := c.Query("email")
+	if email == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "email query param is required",
+		})
+	}
+	input := &User{Email: email}
+	user, err := ctl.Service.Find(input)
+	if err != nil {
+		fmt.Printf("Find user error: %v\n", err)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "user not found",
+		})
+	}
+
+	return c.JSON(user)
+}
