@@ -3,7 +3,6 @@ package user
 import (
 	"log"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -27,10 +26,6 @@ func (s *UserService) FindAll() ([]User, error) {
 }
 
 func (s *UserService) Create(input *User) error {
-	if input.ID == uuid.Nil {
-		input.ID = uuid.New()
-	}
-	log.Println("Input")
 	err := s.DB.Create(input).Error
 	if err != nil {
 		log.Printf("create user error : %v", err)
